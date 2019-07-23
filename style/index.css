@@ -12,4 +12,9 @@ body {
     display: inline-block;
 }
 
+#github {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 /*a {margin-right: 10px;}*/
