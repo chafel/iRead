@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iRead:Save your daily read articles to the specified repo at Github.</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/index.css">
+</head>
+<body>
+<h3>iRead: log your reads</h3>
+
+<div id="setting-group">
+    <div id="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <div id="saving">
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">saving...</span>
+        </div>
+
+        <span class="text-success">Saving</span>
+    </div>
+
+    <div id="token-area">
+        <!--    <label for="token">token</label>-->
+        <!--    <input type="text" id="token">-->
+        <!--    <button type="button" class="btn btn-primary" id="check-btn">check</button>-->
+
+        <div class="input-group mb-3">
+            <input type="text" id="token" class="form-control" placeholder="Please input your token" aria-label="Token" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="check-btn">Check</button>
+            </div>
+        </div>
+        <a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line" class="text-primary">How to get a token?</a>
+    </div>
+
+    <div id="repo-area">
+        <img src="" alt="avatar">
+        <span id="username"></span>
+        <div id="warning" class="alert alert-warning" role="alert"></div>
+    </div>
+
+    <div id="select-area">
+        <div class="form-group">
+            <label for="repo-select">Chose a repo to update</label>
+            <select class="form-control" id="repo-select"></select>
+        </div>
+
+        <button class="btn btn-primary mb-2" id="finish-btn">Finish</button>
+    </div>
+</div>
+
+<div id="re-setting">
+    <div id="choose-repo">
+        Already choose <a><em class="text-danger">unset</em></a> to record your daily read article!
+
+        <button id="reset-btn" type="button" class="btn btn-secondary btn-sm">Reset</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jQuery.js"></script>
+<script type="text/javascript" src="js/popup.js"></script>
+</body>
+</html>
