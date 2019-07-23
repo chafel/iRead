@@ -10,6 +10,8 @@ let repoId, repos=[], token, user;
 function clearUserAndRepo() {
   db.users.clear();
   db.repoId.clear();
+  db.repos.clear();
+  repos = [];
   repoId = undefined;
   token = undefined;
   user = undefined;

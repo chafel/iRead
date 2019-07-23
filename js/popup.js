@@ -33,6 +33,7 @@ function initHide() {
   $('#loading').hide();
   $('#re-setting').hide();
   $('#saving').hide();
+  $('.card').hide();
 }
 
 initHide();
@@ -117,6 +118,7 @@ $('#finish-btn').click(e => {
 
 $('#reset-btn').click(e => {
   bg.clearUserAndRepo();
+  clearInterval(countTimer);
 
   initHide();
   // 该 show 的 show
@@ -139,13 +141,15 @@ getCurrentTabId((data) => page = data);
  * 3.postUpdated
  */
 
-// 并在页面有 loading
-if (savedInfo.user && savedInfo.repo) {
+var countTimer;
+
+function runSave(tag) {
   $('#saving').show();
+  $('.card').hide();
 
   $.get(savedInfo.repo.url + '/readme').done(data => {
     let content = b64DecodeUnicode(data.content);
-    const newContent = content + `\n - [${page.title}](${page.url}) at ${getTime()}`;
+    const newContent = content + `\n -${tag ? ' '+tag : ''}` + ` [${page.title}](${page.url}) at ${getTime()}`;
 
     $.ajax({
       method: 'PUT',
@@ -173,5 +177,25 @@ if (savedInfo.user && savedInfo.repo) {
       }
     })
   });
+
+  clearInterval(countTimer);
+  $('.auto-save span').text(3);
 }
+
+// 并在页面有 loading
+if (savedInfo.user && savedInfo.repo) {
+  $('.card').show();
+  countTimer = setInterval(() => {
+    var time = + $('.auto-save span').text();
+    if (time > 1) {
+      $('.auto-save span').text(time - 1);
+    } else {
+      runSave();
+    }
+    }, 1000);
+}
+
+$('.tag').click(e=> {
+  runSave($(e.target).attr('data-text'));
+});
 

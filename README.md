@@ -9,6 +9,10 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 
 
 #### change logs
+##### v0.0.2
+
+- Support adding tag for page with emoji. For example, you can use :eye: tag for read it later.
+
 ##### v0.0.1 
 
 - Save your logs!
