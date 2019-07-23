@@ -16,19 +16,8 @@
     "default_title": "iRead",
     "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://github.com/*"],
-      "js": ["js/jQuery.js", "js/content.js"],
-      "run_at": "document_start"
-    }
-  ],
   "permissions": [
-    "contextMenus",
-    "tabs",
     "notifications",
-    "webRequest",
-    "webRequestBlocking",
     "storage",
     "http://*/*",
     "https://*/*"

@@ -20,24 +20,13 @@ async function getRepoInfo() {
   repoId = repo[0] && repo[0].id;
 
   repos = await db.repos.toArray();
-  console.log(repos, repoId);
 }
 function getUserAndToken() {
   db.users.each((friend) => {
     user = friend;
     token = friend.token;
-
-    console.log(user, token);
   });
 }
-
-
-// db.repos.get(77471185, function (firstFriend) {
-//   if (firstFriend) {
-//     console.log("Friend with id 1: " + firstFriend.name);
-//   }
-// });
-
 
 function setRepos(data) {
   repos = data;
@@ -52,28 +41,26 @@ function saveUser(data) {
 }
 
 function setRepo(id) {
-  // var views = chrome.extension.getViews({type:'popup'});
-  // console.log(id, views);
   repoId = id;
   db.repoId.add({ id });
 }
 
 // 监听来自content-script的消息
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
-{
-  console.log('收到来自content-script的消息：');
-  console.log(request, sender, sendResponse);
-  sendResponse('我是后台，我已收到你的消息：' + JSON.stringify(request));
-});
-
-function autoCheck () {
-  // do something you wanted
-  // 打开 github 后同步登陆状态
-  // 收到消息检查登陆状态执行后台打开新页面
-  // 完成更新文件后通知popup替换图标
-
-  // TODO 检查token是否失效，失效后icon上添加badge
-}
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
+// {
+//   console.log('收到来自content-script的消息：');
+//   console.log(request, sender, sendResponse);
+//   sendResponse('我是后台，我已收到你的消息：' + JSON.stringify(request));
+// });
+//
+// function autoCheck () {
+//   // do something you wanted
+//   // 打开 github 后同步登陆状态
+//   // 收到消息检查登陆状态执行后台打开新页面
+//   // 完成更新文件后通知popup替换图标
+//
+//   // TODO 检查token是否失效，失效后icon上添加badge
+// }
 
 function getSavedInfo() {
     console.log(repos, repos.find(repo => repo.id === repoId))
