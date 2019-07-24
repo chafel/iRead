@@ -39,10 +39,10 @@ function initHide() {
 initHide();
 
 function setUserArea(data) {
-  const { email, avatar_url, name, repos_url } = data;
+  const { email, avatar_url, name, login, repos_url } = data;
   $('#token-area').hide();
   $('#repo-area img').attr('src', avatar_url);
-  $('#username').text('hi, ' + name + '(' + email + ')');
+  $('#username').text(`hi, ${ name ? name : login}`);
   $('#repo-area').show();
 }
 
@@ -151,20 +151,25 @@ function runSave(tag) {
     let content = b64DecodeUnicode(data.content);
     const newContent = content + `\n -${tag ? ' '+tag : ''}` + ` [${page.title}](${page.url}) at ${getTime()}`;
 
+    const dataToUpdate = {
+      content: b64EncodeUnicode(newContent),
+      sha: data.sha,
+      message: 'Update README file',
+    };
+
+    if (savedInfo.user.name && savedInfo.user.email) {
+      dataToUpdate.committer = {
+        name: savedInfo.user.name,
+        email: savedInfo.user.email
+      }
+    }
+
     $.ajax({
       method: 'PUT',
       url: savedInfo.repo.url + '/contents/README.md',
       dataType: 'json',
       contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify({
-        content: b64EncodeUnicode(newContent),
-        sha: data.sha,
-        message: 'Update README file',
-        committer: {
-          name: savedInfo.user.name,
-          email: savedInfo.user.email
-        },
-      }),
+      data: JSON.stringify(dataToUpdate),
       success: function (result) {
         // 结束后发送一个通知
         $('#saving').hide();
