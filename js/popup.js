@@ -134,6 +134,7 @@ $('#reset-btn').click(e => {
  */
 
 var countTimer;
+var myNotificationID = null;
 
 function runSave(tag) {
   $('#saving').show();
@@ -173,7 +174,21 @@ function runSave(tag) {
               type: 'basic',
               iconUrl: 'img/cheshire_cat_saved.png',
               title: 'Saved！',
-              message: "Current page has been saved to the selected repo's README.md."
+              message: "Current page has been saved to the selected repo's README.md.",
+              buttons: [{
+                title: "See it",
+              }]
+            }, function(id) {
+              myNotificationID = id;
+            });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            window.close();
+            chrome.notifications.create(null, {
+              type: 'basic',
+              iconUrl: 'img/cheshire_cat_saved.png',
+              title: 'Wrong！',
+              message: `${textStatus == 409 ? 'Conflict!' : ''} Please save it later!`
             });
           }
         })
@@ -204,6 +219,18 @@ if (savedInfo.user && savedInfo.repo) {
     }
     }, 1000);
 }
+
+/* Respond to the user's clicking one of the buttons */
+chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
+  if (notifId === myNotificationID) {
+    if (btnIdx === 0) {
+      // NOTE 打不开 window.open("http://baidu.com", '_blank');
+      chrome.tabs.create({
+        url: savedInfo.repo.html_url
+      })
+    }
+  }
+});
 
 $('.tag').click(e=> {
   runSave($(e.target).attr('data-text'));
