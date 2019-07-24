@@ -126,14 +126,6 @@ $('#reset-btn').click(e => {
 });
 
 
-function getCurrentTabId(callback) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    if (callback) callback(tabs.length ? tabs[ 0 ] : null);
-  });
-}
-
-var page;
-getCurrentTabId((data) => page = data);
 // 调用 github api 更新 readme ，with 当前 page{title, url}
 /**
  * 1.getReadme
@@ -147,45 +139,57 @@ function runSave(tag) {
   $('#saving').show();
   $('.card').hide();
 
-  $.get(savedInfo.repo.url + '/readme').done(data => {
-    let content = b64DecodeUnicode(data.content);
-    const newContent = content + `\n -${tag ? ' '+tag : ''}` + ` [${page.title}](${page.url}) at ${getTime()}`;
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var page = tabs.length ? tabs[ 0 ] : null ;
+    if (page && page.url) {
+      $.get(savedInfo.repo.url + '/readme').done(data => {
+        let content = b64DecodeUnicode(data.content);
+        const newContent = content + `\n -${tag ? ' '+tag : ''}` + ` [${page.title}](${page.url}) at ${getTime()}`;
 
-    const dataToUpdate = {
-      content: b64EncodeUnicode(newContent),
-      sha: data.sha,
-      message: 'Update README file',
-    };
+        const dataToUpdate = {
+          content: b64EncodeUnicode(newContent),
+          sha: data.sha,
+          message: 'Update README file',
+        };
 
-    if (savedInfo.user.name && savedInfo.user.email) {
-      dataToUpdate.committer = {
-        name: savedInfo.user.name,
-        email: savedInfo.user.email
-      }
+        if (savedInfo.user.name && savedInfo.user.email) {
+          dataToUpdate.committer = {
+            name: savedInfo.user.name,
+            email: savedInfo.user.email
+          }
+        }
+
+        $.ajax({
+          method: 'PUT',
+          url: savedInfo.repo.url + '/contents/README.md',
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(dataToUpdate),
+          success: function (result) {
+            // 结束后发送一个通知
+            $('#saving').hide();
+            setTimeout(() => window.close(), 1000);
+            chrome.notifications.create(null, {
+              type: 'basic',
+              iconUrl: 'img/cheshire_cat_saved.png',
+              title: 'Saved！',
+              message: "Current page has been saved to the selected repo's README.md."
+            });
+          }
+        })
+      });
+
+      clearInterval(countTimer);
+      $('.auto-save span').text(3);
+    } else {
+      chrome.notifications.create(null, {
+        type: 'basic',
+        iconUrl: 'img/cheshire_cat_saved.png',
+        title: 'Wrong！',
+        message: "Can not get current page."
+      });
     }
-
-    $.ajax({
-      method: 'PUT',
-      url: savedInfo.repo.url + '/contents/README.md',
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(dataToUpdate),
-      success: function (result) {
-        // 结束后发送一个通知
-        $('#saving').hide();
-        setTimeout(() => window.close(), 1000);
-        chrome.notifications.create(null, {
-          type: 'basic',
-          iconUrl: 'img/cheshire_cat_saved.png',
-          title: 'Saved！',
-          message: "Current page has been saved to the selected repo's README.md."
-        });
-      }
-    })
   });
-
-  clearInterval(countTimer);
-  $('.auto-save span').text(3);
 }
 
 // 并在页面有 loading
