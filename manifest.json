@@ -18,9 +18,7 @@
   },
   "permissions": [
     "notifications",
-    "storage",
-    "http://*/*",
-    "https://*/*"
+    "storage"
   ],
   "homepage_url": "https://github.com/chafel/iRead",
   "chrome_url_overrides": {}
