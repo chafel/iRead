@@ -10,6 +10,11 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 
 
 #### change logs
+##### v0.0.5
+
+- Feature: add "See it" button to notification.
+- Fix: ask "tabs" permission to read current active window.
+
 ##### v0.0.4 
 
 - Open repo link and helper link in new tab.
