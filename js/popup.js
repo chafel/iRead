@@ -66,7 +66,7 @@ function getSavedInfo() {
   }
 
   if (savedInfo.repo) {
-    $('#re-setting a').text(savedInfo.repo.full_name).attr('href', savedInfo.repo.url);
+    $('#re-setting a').text(savedInfo.repo.full_name).attr('href', savedInfo.repo.html_url);
     $('#re-setting').show();
   }
 }
@@ -92,7 +92,7 @@ $('#check-btn').click(e => {
       $('#loading').hide();
 
       if (data.length > 0) {
-        //TODO sync data to background.js
+        //DONE TODO sync data to background.js
         bg.setRepos(data);
         data.forEach((repo) => $('#repo-select').append("<option value='" + repo.id + "'>" + repo.name + "</option>"))
         $('#select-area').show();
@@ -168,11 +168,12 @@ function runSave(tag) {
       success: function (result) {
         // 结束后发送一个通知
         $('#saving').hide();
+        setTimeout(() => window.close(), 1000);
         chrome.notifications.create(null, {
           type: 'basic',
           iconUrl: 'img/cheshire_cat_saved.png',
-          title: 'Saved success！',
-          message: "Current page has saved to the selected repo's README.md"
+          title: 'Saved！',
+          message: "Current page has been saved to the selected repo's README.md."
         });
       }
     })
