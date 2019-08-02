@@ -20,6 +20,12 @@
         .jumbotron {
             margin-bottom: 0;
         }
+
+        .load-btn {
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -37,13 +43,33 @@
     </p>
     <p class="lead text-success">You are what you read!</p>
     <hr class="my-4">
-    <p>
+    <p id="youtube">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/ctQwxl7eM20" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <a class="text-warning load-btn">Load video from Bilibili?</a>
+    </p>
+    <p id="bilibili">
+        <iframe src="https://player.bilibili.com/player.html?aid=61882652&cid=107601721&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        <a class="text-warning load-btn">Load video from Youtube?</a>
     </p>
     <a class="btn btn-primary btn-lg" href="https://chrome.google.com/webstore/detail/iread/nelcbbedkpoknladgbpebfflnambeiif" role="button">Try it</a>
 </div>
 
 
 <script type="text/javascript" src="js/jQuery.js"></script>
+<script>
+    $(function() {
+      $('#bilibili').hide();
+
+      $('#youtube a').click(e => {
+        $('#bilibili').show();
+        $('#youtube').hide();
+      });
+
+      $('#bilibili a').click(e => {
+        $('#bilibili').hide();
+        $('#youtube').show();
+      })
+    });
+</script>
 </body>
 </html>
