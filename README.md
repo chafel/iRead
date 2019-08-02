@@ -6,8 +6,10 @@ This extension can log your read web pages to README.md of the selected repo on 
 You can clearly see your reading logs. Using as a collection or share your logs with friends.
 
 [Download](https://chrome.google.com/webstore/detail/iread/nelcbbedkpoknladgbpebfflnambeiif)
+
 [中文介绍](https://www.yuque.com/chaofeis/lifelog/eqal52)
 
+[iRead Website](https://chafel.github.io/iRead/)
 
 #### change logs
 ##### v0.0.5
