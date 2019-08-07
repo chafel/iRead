@@ -1,6 +1,6 @@
 body {
     font-family: 'Microsoft Yahei';
-    width: 380px;
+    width: 425px;
     min-height: 100px;
     text-align: center;
     padding: 24px;
@@ -28,12 +28,17 @@ body {
 }
 
 #tags .tag {
-    margin: 0 6px;
+    margin: 6px;
     text-align: center;
+    display: inline-block;
+    border: 1px solid #eee;
+    padding: 0 6px;
+    border-radius: 5px;
 }
 
 #tags .tag:hover {
     background-color: #dad0d0;
-    border-radius: 2px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all ease-in-out 300ms;
 }

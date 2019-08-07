@@ -41,7 +41,7 @@ initHide();
 function setUserArea(data) {
   const { email, avatar_url, name, login, repos_url } = data;
   $('#token-area').hide();
-  $('#repo-area img').attr('src', avatar_url);
+  // $('#repo-area img').attr('src', avatar_url);
   $('#username').text(`hi, ${ name ? name : login}`);
   $('#repo-area').show();
 }
