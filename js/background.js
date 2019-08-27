@@ -80,7 +80,7 @@ function init () {
     // 拿到了所有信息
   });
 
-
+  chrome.tabs.create({url: "https://chafel.github.io/iRead/"});
   // autoCheck();
   // 10min 执行一次
   // setInterval(autoCheck, 600000);

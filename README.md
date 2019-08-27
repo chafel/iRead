@@ -13,6 +13,10 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 
 #### change logs
 
+##### v0.0.7
+- Open the main page after installing or updating.
+
+
 ##### v0.0.6
 - Fix: remove avatar display in case of slow network
 - Add tag emoji: :+1:(approve) :-1:(disapprove)  :satisfied:(funny) :heart:(love) :astonished:(surprised) :triumph:(angry)  :cry:(sad) :eye:(read it later?)
