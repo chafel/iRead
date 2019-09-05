@@ -80,7 +80,17 @@ function init () {
     // 拿到了所有信息
   });
 
-  chrome.tabs.create({url: "https://chafel.github.io/iRead/"});
+  // Check whether new version is installed
+  chrome.runtime.onInstalled.addListener(function(details){
+    if(details.reason == "install"){
+      console.log("This is a first install!");
+      chrome.tabs.create({url: "https://chafel.github.io/iRead?type=install"});
+    }else if(details.reason == "update"){
+      var thisVersion = chrome.runtime.getManifest().version;
+      console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
+      chrome.tabs.create({url: "https://chafel.github.io/iRead?type=update&v=" + thisVersion});
+    }
+  });
   // autoCheck();
   // 10min 执行一次
   // setInterval(autoCheck, 600000);

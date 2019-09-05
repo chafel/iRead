@@ -13,6 +13,10 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 
 #### change logs
 
+##### v0.0.8
+- Only open the main page after installing or updating, not every time when open Chrome.
+- Give a greeting in main page.
+
 ##### v0.0.7
 - Open the main page after installing or updating.
 
