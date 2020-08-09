@@ -11,7 +11,18 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 
 [iRead Website](https://chafel.github.io/iRead/)
 
+
+#### TODO
+- [] Support two save types:
+  - README.md for saving;
+  - issues for discussing.
+- [] Support undo action. 
+
+
 #### change logs
+
+##### v0.0.9
+- Now you can add as many tags as you want for every link.
 
 ##### v0.0.8
 - Only open the main page after installing or updating, not every time when open Chrome.
