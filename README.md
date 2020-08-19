@@ -22,7 +22,8 @@ You can clearly see your reading logs. Using as a collection or share your logs 
 #### change logs
 
 ##### v0.0.9
-- Now you can add as many tags as you want for every link.
+- Use `sort=created&per_page=100` due to [Github API](https://docs.github.com/en/rest)'s limit for 30 in per page.
+- ~~Now you can add as many tags as you want for every link~~.
 
 ##### v0.0.8
 - Only open the main page after installing or updating, not every time when open Chrome.

@@ -39,7 +39,7 @@ function initHide() {
 initHide();
 
 function setUserArea(data) {
-  const { email, avatar_url, name, login, repos_url } = data;
+  const { email, avatar_url, name, login, +'?sort=created&per_page=100' } = data;
   $('#token-area').hide();
   // $('#repo-area img').attr('src', avatar_url);
   $('#username').text(`hi, ${ name ? name : login}`);
@@ -88,7 +88,7 @@ $('#check-btn').click(e => {
     });
     setUserArea(data);
 
-    $.get(data.repos_url).done(data => {
+    $.get(data.repos_url+'?sort=created&per_page=100').done(data => {
       $('#loading').hide();
 
       if (data.length > 0) {
