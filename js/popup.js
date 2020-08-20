@@ -39,7 +39,7 @@ function initHide() {
 initHide();
 
 function setUserArea(data) {
-  const { email, avatar_url, name, login, +'?sort=created&per_page=100' } = data;
+  const { email, avatar_url, name, login, repos_url } = data;
   $('#token-area').hide();
   // $('#repo-area img').attr('src', avatar_url);
   $('#username').text(`hi, ${ name ? name : login}`);
@@ -88,21 +88,24 @@ $('#check-btn').click(e => {
     });
     setUserArea(data);
 
-    $.get(data.repos_url+'?sort=created&per_page=100').done(data => {
-      $('#loading').hide();
+    $.get(data.repos_url + '?sort=created&per_page=100').done((data) => {
+      $("#loading").hide();
 
       if (data.length > 0) {
         //DONE TODO sync data to background.js
         bg.setRepos(data);
-        data.forEach((repo) => $('#repo-select').append("<option value='" + repo.id + "'>" + repo.name + "</option>"))
-        $('#select-area').show();
+        data.forEach((repo) =>
+          $("#repo-select").append(
+            "<option value='" + repo.id + "'>" + repo.name + "</option>"
+          )
+        );
+        $("#select-area").show();
       } else {
         //DONE TODO show warning for empty array
-        $('#repo-select').hide();
-        $('#finish-btn').hide();
-        $('#warning').text('Please create one repo on Github！').show();
+        $("#repo-select").hide();
+        $("#finish-btn").hide();
+        $("#warning").text("Please create one repo on Github！").show();
       }
-
     });
   });
 });
